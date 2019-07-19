@@ -39,13 +39,16 @@ class KindsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_kind
+  # Use callbacks to share common setup or constraints between actions.
+  def set_kind
+    if params[:contact_id]
+      return @kind = Contact.find(params[:contact_id]).kind
+    end
       @kind = Kind.find(params[:id])
-    end
+  end
 
-    # Only allow a trusted parameter "white list" through.
-    def kind_params
-      params.require(:kind).permit(:desctiption)
-    end
+  # Only allow a trusted parameter "white list" through.
+  def kind_params
+    params.require(:kind).permit(:desctiption)
+  end
 end
